@@ -199,7 +199,7 @@
 								<div class="col-md-3">
 									<label for="exampleInput">Phone<span class="validateRq">*</span></label>
 									<div class="input-group">
-										<span class="input-group-addon">+880</span>
+										<span class="input-group-addon">+990</span>
 										<input class="form-control number phone" id="phone" required placeholder="Enter phone"  name="phone" type="number" value="{{ old('phone') }}">
 									</div>
 								</div>

@@ -10,7 +10,7 @@
     <link rel="shortcut icon" href="{!! asset('admin_assets/img/fav.png') !!}" type="image/x-icon"/>
     <title>@yield('title')</title>
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <!-- Menu CSS -->
     <link href="{!! asset('admin_assets/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') !!}"
           rel="stylesheet">
@@ -67,10 +67,10 @@
         /*for yellow bg*/
 
         .navbar-header {
-            background: #712a87;
+            background: #222a48;
         }
         #side-menu li a {
-            color: black;
+            color: #fff;
             border-left: 0px solid #2f323e;
         }
         .top-left-part .dark-logo {
@@ -81,18 +81,18 @@
             color: #fff;
         }
         .sidebar {
-            background: #d1d3d4;
+            background: #373535;
             box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08);
         }
         .hideMenu{
-            color: black;
+            color: #fff;
         }
         #side-menu ul > li > a.active {
-            color: black;
+            color: #EDDF10;
             font-weight: 400;
         }
         #side-menu ul > li > a:hover {
-            color: black;
+            color: #fff;
         }
         /*for yellow bg*/
 

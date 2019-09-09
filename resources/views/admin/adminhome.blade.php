@@ -54,7 +54,7 @@
 
         <div class="col-lg-3 col-sm-6 col-xs-12">
             <div class="white-box analytics-info">
-                <h3 class="box-title"> Total DEPARTMENT</h3>
+                <h3 class="box-title">DEPARTMENT</h3>
                 <ul class="list-inline two-part">
                     <li>
                         <div id="sparklinedash2"></div>
@@ -66,7 +66,7 @@
 
         <div class="col-lg-3 col-sm-6 col-xs-12">
             <div class="white-box analytics-info">
-                <h3 class="box-title">Total PRESENT</h3>
+                <h3 class="box-title">PRESENT</h3>
                 <ul class="list-inline two-part">
                     <li>
                         <div id="sparklinedash3"></div>
@@ -78,7 +78,7 @@
 
         <div class="col-lg-3 col-sm-6 col-xs-12">
             <div class="white-box analytics-info">
-                <h3 class="box-title">Total ABSENT </h3>
+                <h3 class="box-title">ABSENT </h3>
                 <ul class="list-inline two-part">
                     <li>
                         <div id="sparklinedash4"></div>
