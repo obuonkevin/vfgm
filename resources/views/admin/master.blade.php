@@ -201,7 +201,7 @@
                 <a class="logo" href="{{url('dashboard')}}">
                     <!-- Logo icon image, you can use font-icon also --><b>
                         <!--This is dark logo icon--><img style="height: 50px; margin-top: 5px;"
-                                                          src="{!! asset('admin_assets/img/logo.png') !!}" alt="home"
+                                                          src="{!! asset('admin_assets/img/logo_black.png') !!}" alt="home"
                                                           class="dark-logo"/>
                     </b>
                     <!-- Logo text image you can use text also --><span class="hidden-xs">
@@ -374,7 +374,7 @@
     </div>
     <!-- /.container-fluid -->
     <footer class="footer text-center">
-        {{date('Y')}} &copy; <strong><a href="http://belogin.com" target="_blank">Belogin</a>
+        {{date('Y')}} &copy; <strong><a href="https://codecanyon.net/user/bd-webtricks" target="_blank">BD-Webtricks</a>
         </strong> All rights reserved.
     </footer>
 </div>
