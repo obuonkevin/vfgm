@@ -204,7 +204,7 @@
                         @endphp
                     <div class="comment-center p-t-10">
                         <div class="comment-body">
-                            <div class="user-img"> <i style="font-size: 31px" class="icon-folder-alt text-danger"></i></div>
+                            <div class="user-img"><i style="font-size: 31px" class="fa fa-flag-checkered text-danger"></i></div>
                             <div class="mail-contnet">
                                 <h5>{{ substr($row->title,0,70)}}..</h5><span class="time">Published Date: {{date(" d M Y ", $noticeDate)}}</span>
                                 <br/><span class="mail-desc">
