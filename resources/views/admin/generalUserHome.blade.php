@@ -299,6 +299,74 @@
     @endif
 
     </div>
+
+    <div class="row">
+        <!-- up comming birthday  -->
+     <div class="row">
+          @if(count($upcoming_birtday) > 0)
+            <div class="col-md-6 col-lg-6 col-sm-12">
+                <div class="white-box">
+                    <h3 class="box-title">Upcoming Birthday</h3>
+                    <hr>
+                    <div class="leaveApplication">
+                    @foreach($upcoming_birtday as $employee_birthdate)
+                    <div class="comment-center p-t-10">
+                        <div class="comment-body">
+                            @if($employee_birthdate->photo !='')
+                                <div class="user-img"> <img src="{!! asset('uploads/employeePhoto/'.$employee_birthdate->photo) !!}" alt="user" class="img-circle"></div>
+                            @else
+                                <div class="user-img"> <img src="{!! asset('admin_assets/img/default.png') !!}" alt="user" class="img-circle"></div>
+                            @endif
+                            <div class="mail-contnet" > 
+
+                                @php 
+                                   $date_of_birth = $employee_birthdate->date_of_birth;
+                                   $separate_date = explode('-',$date_of_birth);
+
+                                   $date_current_year = date('Y').'-'.$separate_date[1].'-'.$separate_date[2];
+
+                                   $create_date = date_create($date_current_year);
+                                @endphp
+                             
+                                <h5>{{ $employee_birthdate->first_name }} {{$employee_birthdate->last_name}}</h5><span class="time">{{ date_format(date_create($employee_birthdate->date_of_birth),"D dS F Y") }}</span> 
+                                <br/>
+
+                                <span class="mail-desc">
+                                    @if($date_current_year == date('Y-m-d'))
+                                      <b>Today is 
+                                       @if($employee_birthdate->gender == 'Male')
+                                        His @else 
+                                        Her 
+                                        @endif 
+                                        Birtday Wish 
+                                     @if($employee_birthdate->gender == 'Male')
+                                          Him 
+                                      @else Her 
+                                      @endif</b>
+
+                                    @else 
+                                     
+                                       Wish 
+                                       @if($employee_birthdate->gender == 'Male')
+                                        Him @else 
+                                        Her 
+                                        @endif
+                                        on {{ date_format($create_date,"D dS F Y") }} 
+                                        
+
+
+                                    @endif
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                    </div>
+                </div>
+            </div>
+        @endif 
+     </div>
+    </div>
     
 
 

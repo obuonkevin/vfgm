@@ -10,8 +10,9 @@
     <link rel="shortcut icon" href="{!! asset('admin_assets/img/fav.png') !!}" type="image/x-icon"/>
     <title>@yield('title')</title>
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}"> -->
     <!-- Menu CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="{!! asset('admin_assets/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') !!}"
           rel="stylesheet">
     <!-- toast CSS -->
@@ -81,7 +82,7 @@
             color: #fff;
         }
         .sidebar {
-            background: #373535;
+            background: #27333e;;
             box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08);
         }
         .hideMenu{

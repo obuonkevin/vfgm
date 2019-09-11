@@ -38,7 +38,7 @@
 									<label for="exampleInput">Name</label>
 									<div id="custom-search-input">
 										<div class="input-group col-md-12">
-											<input type="text" class="search-query form-control employee_name" placeholder=" Search by employee name" />
+											<input type="text" class="search-query form-control employee_name" placeholder=" Search by employee name" onkeyup="getData(1)" />
 											<span class="input-group-btn">
 												<button class="btn btn-danger" type="button">
 													<span class=" glyphicon glyphicon-search"></span>
@@ -51,7 +51,7 @@
 							<div class="col-md-3">
 								<div class="form-group">
 									<label for="exampleInput">Department</label>
-									<select name="department_id" class="form-control department_id  select2" required>
+									<select name="department_id" class="form-control department_id  select2" onchange="getData(1)" required>
 										<option value="">--- Select Department ---</option>
 										@foreach($departmentList as $value)
 											<option value="{{$value->department_id}}" @if($value->department_id == old('department_id')) {{"selected"}} @endif>{{$value->department_name}}</option>
@@ -62,7 +62,7 @@
 							<div class="col-md-3">
 								<div class="form-group">
 									<label for="exampleInput">Designation</label>
-									<select name="designation_id" class="form-control designation_id select2" required>
+									<select name="designation_id" class="form-control designation_id select2" onchange="getData(1)" required>
 										<option value="">--- Select Designation ---</option>
 										@foreach($designationList as $value)
 											<option value="{{$value->designation_id}}" @if($value->designation_id == old('designation_id')) {{"selected"}} @endif>{{$value->designation_name}}</option>
@@ -73,7 +73,7 @@
 							<div class="col-md-3">
 								<div class="form-group">
 									<label for="exampleInput">Role</label>
-									<select name="department_id" class="form-control role_id  select2" required>
+									<select name="department_id" class="form-control role_id  select2" onchange="getData(1)" required>
 										<option value="">--- Select Role ---</option>
 										@foreach($roleList as $value)
 											<option value="{{$value->role_id}}" @if($value->role_id == old('role_id')) {{"selected"}} @endif>{{$value->role_name}}</option>

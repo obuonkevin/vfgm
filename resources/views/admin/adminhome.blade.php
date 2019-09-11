@@ -2,6 +2,10 @@
 @section('content')
 @section('title','Dashboard')
 <style>
+    .dash_image {
+
+        width: 60px;
+    }
     @if(count($attendanceData) > 3)
 	tbody {
         display:block;
@@ -45,7 +49,7 @@
                 <h3 class="box-title">Total EMPLOYEE</h3>
                 <ul class="list-inline two-part">
                     <li>
-                        <div id="sparklinedash"></div>
+                        <img class="dash_image" src="{{ asset('admin_assets/img/employee.png') }}" >
                     </li>
                     <li class="text-right"><i class="ti-arrow-up text-success"></i> <span class="counter text-success">{{$totalEmployee}}</span></li>
                 </ul>
@@ -57,7 +61,7 @@
                 <h3 class="box-title">DEPARTMENT</h3>
                 <ul class="list-inline two-part">
                     <li>
-                        <div id="sparklinedash2"></div>
+                         <img class="dash_image" src="{{ asset('admin_assets/img/department.png') }}" >
                     </li>
                     <li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="counter text-purple">{{$totalDepartment}}</span></li>
                 </ul>
@@ -69,7 +73,7 @@
                 <h3 class="box-title">PRESENT</h3>
                 <ul class="list-inline two-part">
                     <li>
-                        <div id="sparklinedash3"></div>
+                         <img class="dash_image" src="{{ asset('admin_assets/img/present.png') }}" >
                     </li>
                     <li class="text-right"><i class="ti-arrow-up text-info"></i> <span class="counter text-info">{{$totalAttendance}}</span></li>
                 </ul>
@@ -81,7 +85,7 @@
                 <h3 class="box-title">ABSENT </h3>
                 <ul class="list-inline two-part">
                     <li>
-                        <div id="sparklinedash4"></div>
+                         <img class="dash_image" src="{{ asset('admin_assets/img/absent.png') }}" >
                     </li>
                     <li class="text-right"><i class="ti-arrow-down text-danger"></i> <span class="counter text-danger">{{$totalAbsent}}</span></li>
                 </ul>
@@ -158,7 +162,7 @@
 
     <div class="row">
         @if(count($leaveApplication) > 0)
-            <div class="col-md-12 col-lg-6 col-sm-12">
+            <div class="col-md-6 col-lg-6 col-sm-12">
                 <div class="white-box">
                     <h3 class="box-title">Recent Leave Application</h3>
                     <hr>
@@ -192,8 +196,10 @@
                 </div>
             </div>
         @endif
+
+
          @if(count($notice) > 0)
-        <div class="col-md-12 col-lg-6 col-sm-12">
+        <div class="col-md-6 col-lg-6 col-sm-12">
             <div class="white-box">
                 <h3 class="box-title">Notice Board</h3>
                 <hr>
@@ -205,9 +211,9 @@
                     <div class="comment-center p-t-10">
                         <div class="comment-body">
 
-                            <div class="user-img"><i style="font-size: 31px" class="fa fa-flag-checkered text-danger"></i></div>
+                            <div class="user-img"><i style="font-size: 31px" class="fa fa-flag-checkered text-info"></i></div>
 
-                            <div class="user-img"> <i style="font-size: 31px" class="icon-folder-alt text-info"></i></div>
+                            
 
                             <div class="mail-contnet">
                                 <h5 class="text-danger">{{ substr($row->title,0,70)}}..</h5><span class="time">Published Date: {{date(" d M Y ", $noticeDate)}}</span>
@@ -222,8 +228,73 @@
                 </div>
             </div>
         </div>
-        @endif
+        @endif 
     </div>
+  <!-- up comming birthday  -->
+     <div class="row">
+          @if(count($upcoming_birtday) > 0)
+            <div class="col-md-6 col-lg-6 col-sm-12">
+                <div class="white-box">
+                    <h3 class="box-title">Upcoming Birthday</h3>
+                    <hr>
+                    <div class="leaveApplication">
+                    @foreach($upcoming_birtday as $employee_birthdate)
+                    <div class="comment-center p-t-10">
+                        <div class="comment-body">
+                            @if($employee_birthdate->photo !='')
+                                <div class="user-img"> <img src="{!! asset('uploads/employeePhoto/'.$employee_birthdate->photo) !!}" alt="user" class="img-circle"></div>
+                            @else
+                                <div class="user-img"> <img src="{!! asset('admin_assets/img/default.png') !!}" alt="user" class="img-circle"></div>
+                            @endif
+                            <div class="mail-contnet" > 
+
+                                @php 
+                                   $date_of_birth = $employee_birthdate->date_of_birth;
+                                   $separate_date = explode('-',$date_of_birth);
+
+                                   $date_current_year = date('Y').'-'.$separate_date[1].'-'.$separate_date[2];
+
+                                   $create_date = date_create($date_current_year);
+                                @endphp
+                             
+                                <h5>{{ $employee_birthdate->first_name }} {{$employee_birthdate->last_name}}</h5><span class="time">{{ date_format(date_create($employee_birthdate->date_of_birth),"D dS F Y") }}</span> 
+                                <br/>
+
+                                <span class="mail-desc">
+                                    @if($date_current_year == date('Y-m-d'))
+                                      <b>Today is 
+                                       @if($employee_birthdate->gender == 'Male')
+                                        His @else 
+                                        Her 
+                                        @endif 
+                                        Birtday Wish 
+                                     @if($employee_birthdate->gender == 'Male')
+                                          Him 
+                                      @else Her 
+                                      @endif</b>
+
+                                    @else 
+                                     
+                                       Wish 
+                                       @if($employee_birthdate->gender == 'Male')
+                                        Him @else 
+                                        Her 
+                                        @endif
+                                        on {{ date_format($create_date,"D dS F Y") }} 
+                                        
+
+
+                                    @endif
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                    </div>
+                </div>
+            </div>
+        @endif 
+     </div>
 </div>
 
 @endsection

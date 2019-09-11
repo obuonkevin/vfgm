@@ -111,6 +111,23 @@ class HomeController extends Controller
 
             $warning = $this->warning->with(['warningBy'])->where('warning_to',session('logged_session_data.employee_id'))->get();
 
+            // date of birth in this month 
+
+        $firstDayThisMonth = date('Y-m-d');
+        $lastDayThisMonth  = date("Y-m-d", strtotime("+1 month", strtotime($firstDayThisMonth)));
+
+        $from_date_explode = explode('-', $firstDayThisMonth);
+        $from_day = $from_date_explode[2];
+        $from_month = $from_date_explode[1];
+        $concatFormDayAndMonth = $from_month.'-'.$from_day;
+
+        $to_date_explode = explode('-', $lastDayThisMonth);
+        $to_day = $to_date_explode[2];
+        $to_month = $to_date_explode[1];
+        $concatToDayAndMonth = $to_month.'-'.$to_day;
+
+         $upcoming_birtday =  Employee::orderBy('date_of_birth','desc')->whereRaw("DATE_FORMAT(date_of_birth, '%m-%d') >= '".$concatFormDayAndMonth."' AND DATE_FORMAT(date_of_birth, '%m-%d') <= '".$concatToDayAndMonth."' ")->get();
+
 
             $data = [
                 'attendanceData'          => $attendanceData,
@@ -122,6 +139,7 @@ class HomeController extends Controller
                 'employeeTotalLeave'      => $employeeTotalLeave,
                 'warning'                 => $warning,
                 'terminationData'         => $terminationData,
+                'upcoming_birtday'        => $upcoming_birtday,
             ];
 
             return view('admin.generalUserHome',$data);
@@ -160,6 +178,24 @@ class HomeController extends Controller
 
         $notice = $this->notice->with('createdBy')->orderBy('notice_id','DESC')->where('status','Published')->get();
 
+         
+               // date of birth in this month 
+
+        $firstDayThisMonth = date('Y-m-d');
+        $lastDayThisMonth  = date("Y-m-d", strtotime("+1 month", strtotime($firstDayThisMonth)));
+
+        $from_date_explode = explode('-', $firstDayThisMonth);
+        $from_day = $from_date_explode[2];
+        $from_month = $from_date_explode[1];
+        $concatFormDayAndMonth = $from_month.'-'.$from_day;
+
+        $to_date_explode = explode('-', $lastDayThisMonth);
+        $to_day = $to_date_explode[2];
+        $to_month = $to_date_explode[1];
+        $concatToDayAndMonth = $to_month.'-'.$to_day;
+
+         $upcoming_birtday =  Employee::orderBy('date_of_birth','desc')->whereRaw("DATE_FORMAT(date_of_birth, '%m-%d') >= '".$concatFormDayAndMonth."' AND DATE_FORMAT(date_of_birth, '%m-%d') <= '".$concatToDayAndMonth."' ")->get();
+
         $data = [
             'attendanceData'    =>$attendanceData,
             'totalEmployee'     =>$totalEmployee,
@@ -170,6 +206,7 @@ class HomeController extends Controller
             'employeeAward'     =>$employeeAward,
             'notice'            =>  $notice,
             'leaveApplication'  =>  $leaveApplication,
+            'upcoming_birtday'  =>  $upcoming_birtday,
         ];
 
 
