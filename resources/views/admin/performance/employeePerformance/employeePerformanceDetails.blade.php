@@ -136,7 +136,9 @@
     $(function () {
         var rating;
         $(".PerformanceRating").rateYo({
-            rating:  <?php echo round($totalRating / $totalItem,2) / 2; ?>,
+            rating:  <?php if($totalRating != 0 && $totalItem != 0){
+																echo round($totalRating / $totalItem,2) / 2;
+															} ?>,
             ratedFill: "#FF4500"
         }).on("rateyo.set", function (e, data) {
 
