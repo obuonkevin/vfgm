@@ -7,6 +7,7 @@ use App\Http\Requests\LeaveTypeRequest;
 use App\Http\Controllers\Controller;
 
 use App\Model\LeaveType;
+use App\Model\LeaveApplication;
 
 use Illuminate\Http\Request;
 
@@ -69,6 +70,13 @@ class LeaveTypeController extends Controller
 
 
     public function destroy($id){
+           
+     $count = LeaveApplication::where('leave_type_id','=',$id)->count();
+
+        if ($count>0) {
+          return "hasForeignKey";
+        }
+
         try{
             $data = LeaveType::findOrFail($id);
             $data->delete();

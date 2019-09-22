@@ -11,6 +11,7 @@ use App\Http\Requests\RoleRequest;
 use Illuminate\Http\Request;
 
 use App\Model\Role;
+use App\User;
 
 
 class RoleController extends Controller
@@ -76,6 +77,16 @@ class RoleController extends Controller
 
 
     public function destroy($id){
+
+        $count = User::where('role_id','=',$id)->count();
+
+        if ($count>0) {
+          return "hasForeignKey";
+        }
+
+        if ($id == 1) {
+           return "error";
+        }
         try{
             $role = Role::FindOrFail($id);
             $role->delete();

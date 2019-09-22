@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Model\Branch;
+use App\Model\Employee;
 
 
 class BranchController extends Controller
@@ -74,6 +75,14 @@ class BranchController extends Controller
 
 
     public function destroy($id){
+         
+         $count = Employee::where('branch_id','=',$id)->count();
+
+         if($count>0){
+
+            return  'hasForeignKey';
+         }
+
         try{
             $branch = Branch::findOrFail($id);
             $branch->delete();

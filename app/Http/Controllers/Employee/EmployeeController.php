@@ -32,6 +32,8 @@ use App\Model\Branch;
 
 use App\Model\Role;
 
+
+
 use App\User;
 
 
@@ -305,6 +307,25 @@ class EmployeeController extends Controller
                     DB::table('user')->where('user_id',$data->user_id)->delete();
                     DB::table('employee_education_qualification')->where('employee_id',$data->employee_id)->delete();
                     DB::table('employee_experience')->where('employee_id',$data->employee_id)->delete();
+                    DB::table('employee_attendnance')->where('finger_print_id',$data->finger_id)->delete();
+                    DB::table('employee_award')->where('employee_id',$data->employee_id)->delete();  
+
+                    DB::table('employee_bonus')->where('employee_id',$data->employee_id)->delete();            
+
+                    DB::table('promotion')->where('employee_id',$data->employee_id)->delete();
+
+                    DB::table('salary_details')->where('employee_id',$data->employee_id)->delete();
+
+                    DB::table('trainin_info')->where('employee_id',$data->employee_id)->delete(); 
+
+                    DB::table('warning')->where('warning_to',$data->employee_id)->delete();
+
+                    DB::table('leave_application')->where('employee_id',$data->employee_id)->delete();  
+
+                    DB::table('employee_performance')->where('employee_id',$data->employee_id)->delete();
+
+                    DB::table('termination')->where('terminate_to',$data->employee_id)->delete();
+
                 }
             DB::commit();
             $bug = 0;

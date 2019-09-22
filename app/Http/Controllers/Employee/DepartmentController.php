@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 
 use App\Model\Department;
 
+use App\Model\Employee;
+
 
 class DepartmentController extends Controller
 {
@@ -69,6 +71,15 @@ class DepartmentController extends Controller
 
 
     public function destroy($id){
+
+      $count = Employee::where('department_id','=',$id)->count();
+
+         if($count>0){
+
+            return  'hasForeignKey';
+         }
+
+
         try{
             $department = Department::FindOrFail($id);
             $department->delete();

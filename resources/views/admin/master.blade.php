@@ -511,7 +511,7 @@
                                     });
                             } else {
                                 swal({
-                                    title: "Deleted!",
+                                    title: "Error!",
                                     text: "Something Error Found !, Please try again.",
                                     type: "error"
                                 });
