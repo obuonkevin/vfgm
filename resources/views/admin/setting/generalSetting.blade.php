@@ -26,8 +26,8 @@
 										<ul>
 											<li><a href="#section-iconbox-1" class="sticon ti-settings"><span>Company Address Settings</span></a></li>
 											<li><a href="#section-iconbox-2" class="sticon ti-settings"><span>Print Head Settings</span></a></li>
-											<li><a href="#section-iconbox-2" class="sticon ti-settings"><span>Settings</span></a></li>
-											<li><a href="#section-iconbox-4" class="sticon ti-settings"><span>Settings</span></a></li>
+									<!-- 		<li><a href="#section-iconbox-2" class="sticon ti-settings"><span>Settings</span></a></li>
+											<li><a href="#section-iconbox-4" class="sticon ti-settings"><span>Settings</span></a></li> -->
 										</ul>
 									</nav>
 									<div class="content-wrap">
@@ -119,12 +119,12 @@
 											</div>
 											{{ Form::close() }}
 										</section>
-										<section id="section-iconbox-3">
+										<!-- <section id="section-iconbox-3">
 											<h2>......................</h2></section>
 										<section id="section-iconbox-4">
 											<h2>......................</h2></section>
 										<section id="section-iconbox-5">
-											<h2>......................</h2></section>
+											<h2>......................</h2></section> -->
 									</div>
 									<!-- /content -->
 								</div>

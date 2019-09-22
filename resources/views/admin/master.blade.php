@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="{!! asset('admin_assets/img/fav.png') !!}" type="image/x-icon"/>
+    <link rel="shortcut icon" href="{!! asset('admin_assets/img/logo.png') !!}" type="image/x-icon"/>
     <title>@yield('title')</title>
     <!-- Bootstrap Core CSS -->
     <!-- <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}"> -->
@@ -201,9 +201,9 @@
                 <!-- Logo -->
                 <a class="logo" href="{{url('dashboard')}}">
                     <!-- Logo icon image, you can use font-icon also --><b>
-                        <!--This is dark logo icon--><img style="height: 50px; margin-top: 5px;"
-                                                          src="{!! asset('admin_assets/img/logo_black.png') !!}" alt="home"
-                                                          class="dark-logo"/>
+                        <!--This is dark logo icon--><img style="width: 90px;"
+                                                          src="{!! asset('admin_assets/img/logo.png') !!}" alt="home"
+                                                          class="dark-logo img-fluid img-responsive"/>
                     </b>
                     <!-- Logo text image you can use text also --><span class="hidden-xs">
                         <!--This is dark logo text-->

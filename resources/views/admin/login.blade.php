@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="shortcut icon" href="{!! asset('admin_assets/img/fav.png') !!}" type="image/x-icon" />
+<link rel="shortcut icon" href="{!! asset('admin_assets/img/logo.png') !!}" type="image/x-icon" />
 <title>HRMS Login</title>
 <!-- Bootstrap Core CSS -->
 <link href="{!! asset('admin_assets/bootstrap/dist/css/bootstrap.min.css') !!}" rel="stylesheet">
@@ -40,7 +40,7 @@
 					<div class="white-box">
 						<h3 class="box-title m-b-0">Log In</h3>
 						<div class="login-logo" style="text-align: center">
-							<img src="{!! asset('admin_assets/img/logo12.png') !!}"  style="margin-top: 25px;height:100px;"/>
+							<img src="{!! asset('admin_assets/img/logo.png') !!}"  style="margin-top: 25px;height:100px;"/>
 						</div>
 						{!! Form::open(['url' => 'login','class' => 'form-horizontal new-lg-form','id' => 'loginform']) !!}
 							@if($errors->any())
