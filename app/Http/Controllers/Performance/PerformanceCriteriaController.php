@@ -10,6 +10,9 @@ use App\Http\Controllers\Controller;
 
 use App\Model\PerformanceCriteria;
 
+use App\Model\EmployeePerformanceDetails;
+
+
 use Illuminate\Http\Request;
 
 
@@ -87,6 +90,14 @@ class PerformanceCriteriaController extends Controller
 
 
     public function destroy($id){
+
+       $count = EmployeePerformanceDetails::where('performance_criteria_id','=',$id)->count();
+
+        if($count>0){
+            
+            return "hasForeignKey";
+        }
+
         try{
             $data = PerformanceCriteria::FindOrFail($id);
             $data->delete();

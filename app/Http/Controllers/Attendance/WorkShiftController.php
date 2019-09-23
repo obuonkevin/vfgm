@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Model\WorkShift;
+use App\Model\Employee;
 
 use Carbon\Carbon;
 
@@ -78,6 +79,14 @@ class WorkShiftController extends Controller
 
 
     public function destroy($id){
+
+        $count = Employee::where('work_shift_id','=',$id)->count();
+
+        if($count>0){
+         
+          return "hasForeignKey";
+        }
+
         try{
             $data = WorkShift::findOrFail($id);
             $data->delete();

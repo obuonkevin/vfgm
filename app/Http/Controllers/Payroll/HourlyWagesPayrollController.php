@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 
 use App\Model\HourlySalary;
 
+use App\Model\Employee;
+
 use Illuminate\Http\Request;
 
 
@@ -75,6 +77,15 @@ class HourlyWagesPayrollController extends Controller
 
 
     public function destroy($id){
+
+
+         $count = Employee::where('hourly_salaries_id','=',$id)->count();
+
+         if($count>0){
+            
+            return "hasForeignKey";
+         }
+
         try{
             $data = HourlySalary::FindOrFail($id);
             $data->delete();

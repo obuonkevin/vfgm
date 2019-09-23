@@ -214,8 +214,10 @@ class EmployeePerformanceController extends Controller
 
     public function destroy($id){
         try{
+
             $data = PerformanceCategory::FindOrFail($id);
             $data->delete();
+            EmployeePerformanceDetails::where('employee_performance_id','=',$id)->delete();
             $bug = 0;
         }
         catch(\Exception $e){

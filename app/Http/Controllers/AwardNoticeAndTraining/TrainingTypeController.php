@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 
 use App\Model\TrainingType;
 
+use App\Model\TrainingInfo;
+
 
 
 class TrainingTypeController extends Controller
@@ -87,6 +89,7 @@ class TrainingTypeController extends Controller
         try{
             $data = TrainingType::FindOrFail($id);
             $data->delete();
+            TrainingInfo::where('training_type_id','=',$id)->delete();
             $bug = 0;
         }
         catch(\Exception $e){

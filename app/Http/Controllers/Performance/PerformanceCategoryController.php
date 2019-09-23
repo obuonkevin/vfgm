@@ -7,6 +7,7 @@ use App\Http\Requests\PerformanceCategoryRequest;
 use App\Http\Controllers\Controller;
 
 use App\Model\PerformanceCategory;
+use App\Model\PerformanceCriteria;
 
 use Illuminate\Http\Request;
 
@@ -75,6 +76,13 @@ class PerformanceCategoryController extends Controller
 
 
     public function destroy($id){
+         
+         $count = PerformanceCriteria::where('performance_category_id','=',$id)->count();
+         if($count>0){
+            
+            return "hasForeignKey";
+         }
+
         try{
             $data = PerformanceCategory::FindOrFail($id);
             $data->delete();

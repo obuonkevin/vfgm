@@ -20,6 +20,8 @@ use App\Model\Deduction;
 
 use App\Model\PayGrade;
 
+use App\Model\Employee;
+
 use Carbon\Carbon;
 
 
@@ -164,7 +166,15 @@ class PayGradeController extends Controller
 
 
     public function destroy($id)
-    {
+    {  
+         
+         $count = Employee::where('pay_grade_id','=',$id)->count();
+
+         if($count>0){
+            
+            return "hasForeignKey";
+         }
+
         try{
             $data = PayGrade::FindOrFail($id);
             $data->delete();
