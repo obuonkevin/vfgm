@@ -12,7 +12,8 @@
 */
 
 Route::get('/', 'User\LoginController@index');
-Route::post('login', 'User\LoginController@Auth');
+Route::get('login', 'User\LoginController@index');
+Route::post('login', 'User\LoginController@Auth')->name('login');
 
 Route::get('mail', 'User\HomeController@mail');
 
@@ -26,7 +27,6 @@ Route::group(['middleware' => ['preventbackbutton','auth']], function(){
     Route::resource('rolePermission','User\RolePermissionController',['parameters'=> ['rolePermission'=>'id']]);
     Route::post('rolePermission/get_all_menu', 'User\RolePermissionController@getAllMenu');
     Route::resource('changePassword','User\ChangePasswordController',['parameters'=> ['changePassword'=>'id']]);
-
 
 });
 

@@ -31,9 +31,17 @@ class UserRequest extends FormRequest
         }
 
         return [
+            'first_name' =>'required',
+            'last_name'=>'required',
+            'email'=>'required|unique:user',
+            'id_no'=>'required|unique:user',
+            'phone_no'=>'required|unique:user',
             'role_id'=>'required',
             'user_name' => 'required|unique:user',
             'password'=>'required|confirmed',
+        
+     
+        
         ];
     }
 }

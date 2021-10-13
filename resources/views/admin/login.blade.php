@@ -1,147 +1,135 @@
-<!DOCTYPE html>  
+<!DOCTYPE html>
+<!--
+Author: Keenthemes
+Product Name: Metronic - #1 Selling Bootstrap 5 HTML Multi-demo Admin Dashboard Theme
+Purchase: https://1.envato.market/EA4JP
+Website: http://www.keenthemes.com
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Dribbble: www.dribbble.com/keenthemes
+Like: www.facebook.com/keenthemes
+License: For each use you must have a valid license purchased only from above link in order to legally use the theme for your project.
+-->
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="shortcut icon" href="{!! asset('admin_assets/img/logo.png') !!}" type="image/x-icon" />
-<title>HRMS Login</title>
-<!-- Bootstrap Core CSS -->
-<link href="{!! asset('admin_assets/bootstrap/dist/css/bootstrap.min.css') !!}" rel="stylesheet">
-<!-- animation CSS -->
-<link href="{!! asset('admin_assets/css/animate.css') !!}" rel="stylesheet">
-<!-- Custom CSS -->
-<link href="{!! asset('admin_assets/css/style.css') !!}" rel="stylesheet">
-<!-- color CSS -->
-<link href="{!! asset('admin_assets/css/colors/default.css') !!}" id="theme"  rel="stylesheet">
+	<!--begin::Head-->
+	<head><base href="{!! asset('../../../')!!}">
+		<meta charset="utf-8" />
+		<title>Farmers Group Management System</title>
+		<meta name="description" content="Metronic admin dashboard live demo. Check out all the features of the admin panel. A large number of settings, additional services and widgets." />
+		<meta name="keywords" content="Metronic, bootstrap, bootstrap 5, Angular 11, VueJs, React, Laravel, admin themes, web design, figma, web development, ree admin themes, bootstrap admin, bootstrap dashboard" />
+		<link rel="canonical" href="Https://preview.keenthemes.com/metronic8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="shortcut icon" href="{!! asset('assets/media/logos/favicon.ico') !!}" />{{-- {!! asset('admin_assets/bootstrap/dist/css/bootstrap.min.css') !!} --}}
+		<!--begin::Fonts-->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+		<!--end::Fonts-->
+		<!--begin::Global Stylesheets Bundle(used by all pages)-->
+		<link href="{!! asset('assets/plugins/global/plugins.bundle.css') !!}" rel="stylesheet" type="text/css" />
+		<link href="{!! asset('assets/css/style.bundle.css')!!}" rel="stylesheet" type="text/css" />
+		<!--end::Global Stylesheets Bundle-->
+	</head>
+	<!--end::Head-->
+	<!--begin::Body-->
+	<body id="kt_body" style="background-image: url({{ url('assets/media/patterns/header-bg.jpg') }})" class="bg-white">
+		<!--begin::Main-->
+		<div class="d-flex flex-column flex-root">
+			<!--begin::Authentication - Sign-in -->
+			<div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url(assets/media/illustrations/progress-hd.png)">
+				<!--begin::Content-->
+				<div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
+					<!--begin::Logo-->
+					<div class="h-45px">
+					  <strong style="color:#ffffff;font-size:145%; font-family:Tahoma, sans-serif;">Farmers Group Management System</strong>
+					</div>
 
-<style>
-	.white-box {
-		background: #E8E8E8;
-		padding: 25px;
-		margin-bottom: 30px;
-		box-shadow: 1px 1px 8px;
-		margin: 20% auto;
-	}
-</style>
-</head>
-<body>
-<!-- Preloader -->
-<div class="preloader">
-  <div class="cssload-speeding-wheel"></div>
-</div>
-<section id="wrapper" class="new-login-register">
-    <div class="container">
-		<div class="row">
-			<div class="col-md-4"></div>
-				<div class="col-md-4">
-					<div class="white-box">
-						<h3 class="box-title m-b-0">Log In</h3>
-						<div class="login-logo" style="text-align: center">
-							<img src="{!! asset('admin_assets/img/logo.png') !!}"  style="margin-top: 25px;height:100px;"/>
-						</div>
-						{!! Form::open(['url' => 'login','class' => 'form-horizontal new-lg-form','id' => 'loginform']) !!}
-							@if($errors->any())
+
+					<!--end::Logo-->
+					<!--begin::Wrapper-->
+					<div class="w-lg-500px bg-white rounded shadow-sm p-10 p-lg-15 mx-auto">
+						<!--begin::Form-->{{--
+						<form method="POST" class="form w-100"  action="{{url('login')}}" novalidate="novalidate" id="kt_sign_in_form"> --}}
+							{!! Form::open(['url' => 'login','class' => 'form w-100','id' => 'kt_sign_in_form'])
+							!!}
+								@if($errors->any())
 								<div class="alert alert-danger alert-dismissible" role="alert">
 									@foreach($errors->all() as $error)
-										<strong>{!! $error !!}</strong><br>
+									<strong>{!! $error !!}</strong><br>
 									@endforeach
 								</div>
-							@endif
+								@endif
 
-							@if(session()->has('error'))
+								@if(session()->has('error'))
 								<div class="alert alert-danger">
 									<p>{!! session()->get('error') !!}</p>
 								</div>
-							@endif
-
-							@if(session()->has('success'))
-								<div class="alert alert-success">
-									<p>{!! session()->get('success') !!}</p>
+								@endif
+								@if(session()->has('success'))
+						<div class="alert alert-success">
+							<p>{!! session()->get('success') !!}</p>
+						</div>
+						@endif
+							{{-- @csrf --}}
+                            <!--begin::Heading-->
+							<div class="text-center mb-10">
+								<!--begin::Title-->
+								<h1 class="text-dark mb-3">Login</h1>
+								<!--end::Title-->
+							</div>
+							<!--begin::Heading-->
+							<!--begin::Input group-->
+							<div class="fv-row mb-10">
+								<!--begin::Label-->
+								<label class="form-label fs-6 fw-bolder text-dark">Username</label>
+								<!--end::Label-->
+								<!--begin::Input-->
+								<input class="form-control form-control-lg form-control-solid" type="text" name="user_name" autocomplete="off" />
+								<!--end::Input-->
+							</div>
+							<!--end::Input group-->
+							<!--begin::Input group-->
+							<div class="fv-row mb-10">
+								<!--begin::Wrapper-->
+								<div class="d-flex flex-stack mb-2">
+									<!--begin::Label-->
+									<label class="form-label fw-bolder text-dark fs-6 mb-0">Password</label>
+									<!--end::Label-->
 								</div>
-							@endif
-							<div class="form-group  m-t-20">
-							  <div class="col-xs-12">
-								<label>User Name</label>
-								  <input type="text" name="user_name" class="form-control" placeholder="User Name " value="{!! old('user_name') !!}">
-							  </div>
+								<!--end::Wrapper-->
+								<!--begin::Input-->
+								<input class="form-control form-control-lg form-control-solid" type="password" name="user_password" autocomplete="off" />
+								<!--end::Input-->
 							</div>
-							<div class="form-group">
-							  <div class="col-xs-12">
-								<label>Password</label>
-								  <input type="password" name="user_password" class="form-control" placeholder="Password"/>
-							  </div>
+							<!--end::Input group-->
+							<!--begin::Actions-->
+							<div class="text-center">
+								<!--begin::Submit button-->
+								<button type="submit" id="kt_sign_in_submit" class="btn btn-lg btn-primary w-100 mb-5">
+									<span class="indicator-label">Log In</span>
+									<span class="indicator-progress">Please wait...
+									<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+								</button>
+								<!--end::Submit button-->
 							</div>
-						<!-- 	<div class="form-group">
-							  <div class="col-md-12">
-								<a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"><i class="fa fa-lock m-r-5"></i> Forgot password ?</a> </div>
-							</div> -->
-							<div class="form-group text-center m-t-20">
-							  <div class="col-xs-12">
-								<button class="btn btn-primary btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Log In</button>
-							  </div>
-							</div>
-						{!! Form::close() !!}
-
-						<form class="form-horizontal" id="recoverform" action="index.html">
-							<div class="form-group ">
-							  <div class="col-xs-12">
-								<h3>Recover Password</h3>
-								<p class="text-muted">Enter your Email and instructions will be sent to you! </p>
-							  </div>
-							</div>
-							<div class="form-group ">
-							  <div class="col-xs-12">
-								<input class="form-control" type="text" required="" placeholder="Email">
-							  </div>
-							</div>
-							<div class="form-group">
-								<div class="col-md-12">
-									<a href="javascript:void(0)" id="backToLogin" class="text-dark pull-right"><i class="fa fa-arrow-left m-r-5"></i> Back</a> </div>
-							</div>
-							
-							<div class="form-group text-center m-t-20">
-							  <div class="col-xs-12">
-								<button class="btn btn-primary btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Reset</button>
-							  </div>
-							</div>
-						</form>
+							<!--end::Actions-->
+							{!! Form::close() !!}
+						<!--end::Form-->
 					</div>
+					<!--end::Wrapper-->
 				</div>
-			<div class="col-md-4"></div>
+				<!--end::Content-->
+			</div>
+			<!--end::Authentication - Sign-in-->
 		</div>
-	</div>
-                  
-  
-  
-</section>
-<!-- jQuery -->
-<script src="{!! asset('admin_assets/plugins/bower_components/jquery/dist/jquery.min.js') !!}"></script>
-<!-- Bootstrap Core JavaScript -->
-<script src="{!! asset('admin_assets/bootstrap/dist/js/bootstrap.min.js') !!}"></script>
-<!-- Menu Plugin JavaScript -->
-<script src="{!! asset('admin_assets/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js') !!}"></script>
-
-<!--slimscroll JavaScript -->
-<script src="{!! asset('admin_assets/js/jquery.slimscroll.js') !!}"></script>
-<!--Wave Effects -->
-<script src="{!! asset('admin_assets/js/waves.js') !!}"></script>
-<!-- Custom Theme JavaScript -->
-<script src="{!! asset('admin_assets/js/custom.min.js') !!}"></script>
-
-	<script>
-        $(function () {
-            $(document).on("focus", "#backToLogin", function () {
-                $( "#recoverform" ).fadeOut( "slow", function() {
-                    $('#loginform').css('display','block');
-
-                });
-            });
-
-            $(".alert-success").delay(1000).fadeOut("slow");
-        });
-	</script>
-</body>
+		<!--end::Main-->
+		<!--begin::Javascript-->
+		<!--begin::Global Javascript Bundle(used by all pages)-->
+		<script src="{!! asset('assets/plugins/global/plugins.bundle.js')!!}"></script>
+		{{-- <script src="{!! asset('assets/js/scripts.bundle.js')!!}"></script> --}}
+		<!--end::Global Javascript Bundle-->
+		<!--begin::Page Custom Javascript(used by this page)-->
+		<script src="{!! asset('assets/js/custom/authentication/sign-in/general.js')!!}"></script>
+		<!--end::Page Custom Javascript-->
+		<!--end::Javascript-->
+	</body>
+	<!--end::Body-->
 </html>

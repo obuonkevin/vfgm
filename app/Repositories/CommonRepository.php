@@ -2,20 +2,26 @@
 
 namespace App\Repositories;
 
-use App\Model\PerformanceCategory;
-
-use Illuminate\Support\Facades\DB;
-
-use App\Model\TrainingType;
-
-use App\Model\WorkShift;
+use App\Model\Market\Category;
+use App\Model\Market\Vendor;
+use App\Model\Role;
 
 use App\Model\PayGrade;
 
-use App\Model\Employee;
+use App\Model\WorkShift;
 
-use App\Model\Role;
+use App\Model\TrainingType;
 
+use App\Model\Settings\Ward;
+
+
+
+use App\Model\Settings\County;
+use App\Model\Settings\Location;
+use App\Model\Settings\SubCounty;
+use App\Model\PerformanceCategory;
+use Illuminate\Support\Facades\DB;
+use League\Flysystem\Adapter\Local;
 
 class CommonRepository
 {
@@ -25,6 +31,42 @@ class CommonRepository
         $options = [''=>'---- Please select ----'];
         foreach ($results as $key => $value) {
             $options [$value->role_id] = $value->role_name;
+        }
+        return $options ;
+    }
+
+    public function countyList(){
+        $results = County::get();
+        $options = [''=>'---- Please select ----'];
+        foreach ($results as $key => $value) {
+            $options [$value->county_id] = $value->county_name;
+        }
+        return $options ;
+    }
+
+    public function SubcountyList(){
+        $results = SubCounty::get();
+        $options = [''=>'---- Please select ----'];
+        foreach ($results as $key => $value) {
+            $options [$value->sub_county_id] = $value->sub_county_name;
+        }
+        return $options ;
+    }
+
+    public function wardList(){
+        $results = Ward::get();
+        $options = [''=>'---- Please select ----'];
+        foreach ($results as $key => $value) {
+            $options [$value->ward_id] = $value->ward_name;
+        }
+        return $options ;
+    }
+
+    public function locationList(){
+        $results = Location::get();
+        $options = [''=>'---- Please select ----'];
+        foreach ($results as $key => $value) {
+            $options [$value->location_id] = $value->location_name;
         }
         return $options ;
     }
@@ -39,6 +81,23 @@ class CommonRepository
         return $options ;
     }
 
+    public function vendorList(){
+        $results = Vendor::get();
+        $options = [''=>'---- Please select ----'];
+        foreach ($results as $key => $value) {
+            $options [$value->vendor_id] = $value->name;
+        }
+        return $options ;
+    }
+
+    public function categoryList(){
+        $results = Category::get();
+        $options = [''=>'---- Please select ----'];
+        foreach ($results as $key => $value) {
+            $options [$value->category_id] = $value->category_name;
+        }
+        return $options ;
+    }
 
     public function departmentList(){
         $results = DB::table('department')->get();
@@ -120,15 +179,6 @@ class CommonRepository
     }
 
 
-    public function employeeList(){
-        $results = Employee::where('status',1)->get();
-        $options = [''=>'---- Please select ----'];
-        foreach ($results as $key => $value) {
-            $options [$value->employee_id] = $value->first_name.' '.$value->last_name;
-        }
-        return $options ;
-    }
-
     public function performanceCategoryList(){
         $results = PerformanceCategory::all();
         $options = [''=>'---- Please select ----'];
@@ -138,14 +188,6 @@ class CommonRepository
         return $options ;
     }
 
-    public function getEmployeeInfo($id){
-        return  Employee::where('user_id',$id)->first();
-    }
-
-
-    public function getEmployeeDetails($id){
-        return  Employee::where('employee_id',$id)->first();
-    }
 
     public function trainingTypeList(){
         $results = TrainingType::where('status',1)->get();

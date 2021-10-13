@@ -1,23 +1,13 @@
 <?php
 
 Route::group(['middleware' => ['preventbackbutton','auth']], function(){
-
-    Route::group(['prefix' => 'department'], function () {
-        Route::get('/',['as' => 'department.index', 'uses'=>'Employee\DepartmentController@index']);
-        Route::get('/create',['as' => 'department.create', 'uses'=>'Employee\DepartmentController@create']);
-        Route::post('/store',['as' => 'department.store', 'uses'=>'Employee\DepartmentController@store']);
-        Route::get('/{department}/edit',['as'=>'department.edit','uses'=>'Employee\DepartmentController@edit']);
-        Route::put('/{department}',['as' => 'department.update', 'uses'=>'Employee\DepartmentController@update']);
-        Route::delete('/{department}/delete',['as'=>'department.delete','uses'=>'Employee\DepartmentController@destroy']);
-    });
-
     Route::group(['prefix' => 'designation'], function () {
         Route::get('/',['as' => 'designation.index', 'uses'=>'Employee\DesignationController@index']);
         Route::get('/create',['as' => 'designation.create', 'uses'=>'Employee\DesignationController@create']);
         Route::post('/store',['as' => 'designation.store', 'uses'=>'Employee\DesignationController@store']);
         Route::get('/{designation}/edit',['as'=>'designation.edit','uses'=>'Employee\DesignationController@edit']);
         Route::put('/{designation}',['as' => 'designation.update', 'uses'=>'Employee\DesignationController@update']);
-        Route::delete('/{designation}/delete',['as'=>'designation.delete','uses'=>'Employee\DesignationController@destroy']);
+        Route::get('/{designation}/delete',['as'=>'designation.delete','uses'=>'Employee\DesignationController@destroy']);
     });
 
 
@@ -27,7 +17,7 @@ Route::group(['middleware' => ['preventbackbutton','auth']], function(){
         Route::post('/store',['as' => 'branch.store', 'uses'=>'Employee\BranchController@store']);
         Route::get('/{branch}/edit',['as'=>'branch.edit','uses'=>'Employee\BranchController@edit']);
         Route::put('/{branch}',['as' => 'branch.update', 'uses'=>'Employee\BranchController@update']);
-        Route::delete('/{branch}/delete',['as'=>'branch.delete','uses'=>'Employee\BranchController@destroy']);
+        Route::get('/{branch}/delete',['as'=>'branch.delete','uses'=>'Employee\BranchController@destroy']);
     });
 
     Route::group(['prefix' => 'employee'], function () {
@@ -37,7 +27,7 @@ Route::group(['middleware' => ['preventbackbutton','auth']], function(){
         Route::get('/{employee}/edit',['as'=>'employee.edit','uses'=>'Employee\EmployeeController@edit']);
         Route::get('/{employee}',['as'=>'employee.show','uses'=>'Employee\EmployeeController@show']);
         Route::put('/{employee}',['as' => 'employee.update', 'uses'=>'Employee\EmployeeController@update']);
-        Route::delete('/{employee}/delete',['as'=>'employee.delete','uses'=>'Employee\EmployeeController@destroy']);
+        Route::get('/{employee}/delete',['as'=>'employee.delete','uses'=>'Employee\EmployeeController@destroy']);
     });
 
     Route::group(['prefix' => 'warning'], function () {
@@ -48,7 +38,7 @@ Route::group(['middleware' => ['preventbackbutton','auth']], function(){
         Route::get('/{warning}',['as'=>'warning.show','uses'=>'Employee\WarningController@show']);
         Route::get('/{warning}',['as'=>'warning.show','uses'=>'Employee\WarningController@show']);
         Route::put('/{warning}',['as' => 'warning.update', 'uses'=>'Employee\WarningController@update']);
-        Route::delete('/{warning}/delete',['as'=>'warning.delete','uses'=>'Employee\WarningController@destroy']);
+        Route::get('/{warning}/delete',['as'=>'warning.delete','uses'=>'Employee\WarningController@destroy']);
     });
 
     Route::group(['prefix' => 'termination'], function () {
@@ -59,7 +49,7 @@ Route::group(['middleware' => ['preventbackbutton','auth']], function(){
         Route::get('/{termination}',['as'=>'termination.show','uses'=>'Employee\TerminationController@show']);
         Route::get('/{termination}',['as'=>'termination.show','uses'=>'Employee\TerminationController@show']);
         Route::put('/{termination}',['as' => 'termination.update', 'uses'=>'Employee\TerminationController@update']);
-        Route::delete('/{termination}/delete',['as'=>'termination.delete','uses'=>'Employee\TerminationController@destroy']);
+        Route::get('/{termination}/delete',['as'=>'termination.delete','uses'=>'Employee\TerminationController@destroy']);
     });
 
     Route::group(['prefix' => 'permanent'], function () {

@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
+use App\User;
 
-use Illuminate\Support\Facades\Auth;
-
-use App\Http\Requests\RoleRequest;
+use App\Model\Role;
 
 use Illuminate\Http\Request;
 
-use App\Model\Role;
-use App\User;
+use App\Http\Requests\RoleRequest;
+
+use App\Http\Requests\UserRequest;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 
 class RoleController extends Controller
@@ -23,11 +24,9 @@ class RoleController extends Controller
     }
 
 
-
     public function create(){
         return view('admin.user.role.form');
     }
-
 
 
     public function store(RoleRequest $request) {
@@ -50,8 +49,10 @@ class RoleController extends Controller
 
 
     public function edit($id){
-        $editModeData =Role::FindOrFail($id);
-        return view('admin.user.role.form',compact('editModeData'));
+        $totalusers  =  User::where('role_id',$id)->count();
+        $users       =  User::where('role_id', $id)->get();
+        $editModeData=  Role::FindOrFail($id);
+        return view('admin.user.role.form',compact('editModeData','totalusers','users'));
     }
 
 

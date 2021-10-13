@@ -34,7 +34,7 @@ class MenuSeeder extends Seeder
                  *
                  */
 
-                array('parent_id' => 0,'action'=>NULL,'name'  => 'Department', 'menu_url'  => 'department.index', 'module_id'  => '2', 'status'  => '1'),
+                array('parent_id' => 0,'action'=>NULL,'name'  => 'Department', 'menu_url'  => 'county.index', 'module_id'  => '2', 'status'  => '1'),
                 array('parent_id' => 0,'action'=>NULL,'name'  => 'Designation', 'menu_url'  => 'designation.index', 'module_id'  => '2', 'status'  => '1'),
                 array('parent_id' => 0,'action'=>NULL,'name'  => 'Branch', 'menu_url'  => 'branch.index', 'module_id'  => '2', 'status'  => '1'),
                 array('parent_id' => 0,'action'=>NULL,'name'  => 'Manage Employee', 'menu_url'  => 'employee.index', 'module_id'  => '2', 'status'  => '1'),

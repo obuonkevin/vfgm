@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => 'Asia/Dhaka',
+    'timezone' => 'Africa/Nairobi',
 
     /*
     |--------------------------------------------------------------------------
@@ -176,8 +176,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Kris\LaravelFormBuilder\FormBuilderServiceProvider::class,
-        Barryvdh\DomPDF\ServiceProvider::class,
+        // Kris\LaravelFormBuilder\FormBuilderServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,/*
+        Dnsimmons\OpenWeather\OpenWeatherServiceProvider::class, */
+
+        'Kris\LaravelFormBuilder\FormBuilderServiceProvider',
 
 
     ],
@@ -228,8 +231,10 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Input' => Illuminate\Support\Facades\Input::class,
+        'Input' => Illuminate\Support\Facades\Request::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'OpenWeather' => Dnsimmons\OpenWeather\OpenWeather::class,
+        'FormBuilder' => 'Kris\LaravelFormBuilder\Facades\FormBuilder',
 
 
     ],

@@ -7,220 +7,99 @@ use App\Model\EmployeeEducationQualification;
 use App\Repositories\AttendanceRepository;
 
 use App\Http\Controllers\Controller;
-
-use App\Model\EmployeePerformance;
-
+use App\Model\Farm\Farmer;
+use App\Model\Farm\Vet;
+use App\Model\Market\Product;
+use App\Model\Market\Vendor;
+use App\Model\Sacco\MilkCollection;
+use App\Model\Sacco\SaccoEditor;
+use App\Model\Sacco\SaccoMember;
+use App\Model\Sacco\Sacco;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-use App\Model\EmployeeExperience;
-
-use App\Model\LeaveApplication;
-
-use App\Model\EmployeeAward;
 
 use Illuminate\Http\Request;
 
-use App\Model\Termination;
-
-use App\Model\Department;
-
-use App\Model\Employee;
-
-use App\Model\Warning;
-
-use App\Model\Notice;
 
 use Mail;
 
 
 class HomeController extends Controller
 {
+    protected $user;
 
-    protected $employeePerformance,$leaveApplication,$notice,$employeeExperience,$department,$employee,$employeeAward,$attendanceRepository,$warning,$termination;
 
-    function __construct(
-                        EmployeePerformance $employeePerformance,
-                        LeaveApplication $leaveApplication,
-                        Notice $notice,EmployeeExperience
-                        $employeeExperience,Department
-                        $department,Employee $employee,EmployeeAward
-                        $employeeAward,AttendanceRepository $attendanceRepository,
-                        Warning $warning,Termination $termination
-                     )
+    function __construct(User $user)
     {
-        $this->employeePerformance  = $employeePerformance;
-        $this->leaveApplication     = $leaveApplication;
-        $this->notice               = $notice;
-        $this->employeeExperience   = $employeeExperience;
-        $this->department           = $department;
-        $this->employee             = $employee;
-        $this->employeeAward        = $employeeAward;
-        $this->attendanceRepository = $attendanceRepository;
-        $this->warning              = $warning;
-        $this->termination          = $termination;
-    }
+        $this->user = $user;
+     }
 
 
     public function index()
     {
 
 
-        if(session('logged_session_data.role_id') != 1){
-
-            $attendanceData = $this->attendanceRepository->getEmployeeMonthlyAttendance( date("Y-m-01"),date("Y-m-d"),session('logged_session_data.employee_id'));
-
-            $employeePerformance =  $this->employeePerformance->select('employee_performance.*',DB::raw('AVG(employee_performance_details.rating) as rating'))
-                ->with(['employee'=>function($d){
-                    $d->with('department');
-                }])
-                ->join('employee_performance_details','employee_performance_details.employee_performance_id','=','employee_performance.employee_performance_id')
-                ->where('month', function($query){
-                    $query->select(DB::raw('MAX(`month`) AS month'))->from('employee_performance');
-                })->where('employee_performance.status',1)->groupBy('employee_id')->get();
-
-            $employeeTotalAward = $this->employeeAward
-                                 ->select(DB::raw('count(*) as totalAward'))
-                                 ->where('employee_id',session('logged_session_data.employee_id'))
-                                 ->whereBetween('month',[date("Y-01"),date("Y-12")])
-                                 ->first();
-
-            $notice = $this->notice->with('createdBy')->orderBy('notice_id','DESC')->where('status','Published')->get();
-
-            $terminationData = $this->termination->with('terminateBy')->where('terminate_to',session('logged_session_data.employee_id'))->first();
-
-            $hasSupervisorWiseEmployee       = $this->employee->select('employee_id')->where('supervisor_id',session('logged_session_data.employee_id'))->get()->toArray();
-            if(count($hasSupervisorWiseEmployee) == 0 ){
-                $leaveApplication = [];
-            }else {
-                $leaveApplication  = $this->leaveApplication->with(['employee','leaveType'])
-                    ->whereIn('employee_id',array_values($hasSupervisorWiseEmployee))
-                    ->where('status',1)
-                    ->orderBy('status','asc')
-                    ->orderBy('leave_application_id','desc')
-                    ->get();
-            }
-
-            $employeeInfo = $this->employee->with('designation')->where('employee_id',session('logged_session_data.employee_id'))->first();
+        if (session('logged_session_data.role_id') != 1) {
 
 
-            $employeeTotalLeave = $this->leaveApplication->select(DB::raw('IFNULL(SUM(number_of_day), 0) as totalNumberOfDays'))
-                                ->where('employee_id',session('logged_session_data.employee_id'))
-                                ->where('status',2)
-                                ->whereBetween('approve_date',[date("Y-01-01"),date("Y-12-31")])
-                                ->first();
+            $userInfo = $this->user->with('role')->where('user_id', session('logged_session_data.user_id'))->first();
 
-            $warning = $this->warning->with(['warningBy'])->where('warning_to',session('logged_session_data.employee_id'))->get();
-
-            // date of birth in this month 
-
-        $firstDayThisMonth = date('Y-m-d');
-        $lastDayThisMonth  = date("Y-m-d", strtotime("+1 month", strtotime($firstDayThisMonth)));
-
-        $from_date_explode = explode('-', $firstDayThisMonth);
-        $from_day = $from_date_explode[2];
-        $from_month = $from_date_explode[1];
-        $concatFormDayAndMonth = $from_month.'-'.$from_day;
-
-        $to_date_explode = explode('-', $lastDayThisMonth);
-        $to_day = $to_date_explode[2];
-        $to_month = $to_date_explode[1];
-        $concatToDayAndMonth = $to_month.'-'.$to_day;
-
-         $upcoming_birtday =  Employee::orderBy('date_of_birth','desc')->whereRaw("DATE_FORMAT(date_of_birth, '%m-%d') >= '".$concatFormDayAndMonth."' AND DATE_FORMAT(date_of_birth, '%m-%d') <= '".$concatToDayAndMonth."' ")->get();
 
 
             $data = [
-                'attendanceData'          => $attendanceData,
-                'employeePerformance'     => $employeePerformance,
-                'employeeTotalAward'      => $employeeTotalAward,
-                'notice'                  => $notice,
-                'leaveApplication'        => $leaveApplication,
-                'employeeInfo'            => $employeeInfo,
-                'employeeTotalLeave'      => $employeeTotalLeave,
-                'warning'                 => $warning,
-                'terminationData'         => $terminationData,
-                'upcoming_birtday'        => $upcoming_birtday,
+                'userInfo'            => $userInfo,
             ];
 
-            return view('admin.generalUserHome',$data);
+            return view('admin.generalUserHome', $data);
         }
 
-
-        $hasSupervisorWiseEmployee       = $this->employee->select('employee_id')->where('supervisor_id',session('logged_session_data.employee_id'))->get()->toArray();
-        if(count($hasSupervisorWiseEmployee) == 0 ){
-            $leaveApplication = [];
-        }else {
-            $leaveApplication  = $this->leaveApplication->with(['employee','leaveType'])
-                ->whereIn('employee_id',array_values($hasSupervisorWiseEmployee))
-                ->where('status',1)
-                ->orderBy('status','asc')
-                ->orderBy('leave_application_id','desc')
-                ->get();
-        }
-
-        $date            = date('Y-m-d');
-        $attendanceData  = DB::select("call `SP_DailyAttendance`('".$date."')");
-        $totalEmployee   = $this->employee->where('status',1)->count();
-        $totalDepartment = $this->department->count();
-
-        $employeePerformance =  $this->employeePerformance->select('employee_performance.*',DB::raw('AVG(employee_performance_details.rating) as rating'))
-                                ->with(['employee'=>function($d){
-                                    $d->with('department');
-                                }])
-                                ->join('employee_performance_details','employee_performance_details.employee_performance_id','=','employee_performance.employee_performance_id')
-                                ->where('month', function($query){
-                                    $query->select(DB::raw('MAX(`month`) AS month'))->from('employee_performance');
-                                })->where('employee_performance.status',1)->groupBy('employee_id')->get();
-
-        $employeeAward = $this->employeeAward->with(['employee'=>function($d){
-                            $d->with('department');
-                        }])->limit(10)->orderBy('employee_award_id','DESC')->get();
-
-        $notice = $this->notice->with('createdBy')->orderBy('notice_id','DESC')->where('status','Published')->get();
-
-         
-               // date of birth in this month 
-
-        $firstDayThisMonth = date('Y-m-d');
-        $lastDayThisMonth  = date("Y-m-d", strtotime("+1 month", strtotime($firstDayThisMonth)));
-
-        $from_date_explode = explode('-', $firstDayThisMonth);
-        $from_day = $from_date_explode[2];
-        $from_month = $from_date_explode[1];
-        $concatFormDayAndMonth = $from_month.'-'.$from_day;
-
-        $to_date_explode = explode('-', $lastDayThisMonth);
-        $to_day = $to_date_explode[2];
-        $to_month = $to_date_explode[1];
-        $concatToDayAndMonth = $to_month.'-'.$to_day;
-
-         $upcoming_birtday =  Employee::orderBy('date_of_birth','desc')->whereRaw("DATE_FORMAT(date_of_birth, '%m-%d') >= '".$concatFormDayAndMonth."' AND DATE_FORMAT(date_of_birth, '%m-%d') <= '".$concatToDayAndMonth."' ")->get();
-
-        $data = [
-            'attendanceData'    =>$attendanceData,
-            'totalEmployee'     =>$totalEmployee,
-            'totalDepartment'   =>$totalDepartment,
-            'totalAttendance'   =>count($attendanceData),
-            'totalAbsent'       =>$totalEmployee - count($attendanceData),
-            'employeePerformance'  =>$employeePerformance,
-            'employeeAward'     =>$employeeAward,
-            'notice'            =>  $notice,
-            'leaveApplication'  =>  $leaveApplication,
-            'upcoming_birtday'  =>  $upcoming_birtday,
-        ];
+            $totalFarmer = Farmer::all()->count();
+            $totalvets = Vet::all()->count();
+            $totalVendors = Vendor::all()->count();
+            $totalProducts = Product::all()->count();
+            $totalUsers = User::all()->count();
+            $users = User::select(DB::raw("COUNT(*) as count"))
+                        ->whereYear('created_at', date('Y'))
+                        ->groupBy(DB::raw("Month(created_at)"))
+                        ->pluck('count');
+            $totalMembers = SaccoMember::all()->count();
+            $totalGroupadmins = SaccoEditor::all()->count();
+            $totalGroups = Sacco::all()->count();
+            $newProducts = Product::with('user')->whereDate('created_at',DB::raw('CURDATE()'))->get();
+            $weekProducts = Product::with('user')->whereBetween('created_at', [Carbon::now()->startOfWeek(),Carbon::now()->endOfWeek()])->get();
+            $monthProducts = Product::with('user')->whereMonth('created_at', Carbon::now()->month)->get();
+            $newMembers = SaccoMember::with('sacco','location')->whereMonth('created_at', Carbon::now()->month)->get();
+            $collections = MilkCollection::with(['sacco', 'user'])->orderBy('created_at', 'desc')->take(10)->get();
+            $data = [
+                'totalVets' => $totalvets,
+                'users' => $users,
+                'newProducts' =>$newProducts,
+                'newMembers' =>$newMembers,
+                'weekProducts' =>$weekProducts,
+                'monthProducts' =>$monthProducts,
+                'totalFarmer' => $totalFarmer,
+                'totalVendors' => $totalVendors,
+                'totalProducts' => $totalProducts,
+                'totalUsers' => $totalUsers,
+                'totalMembers' => $totalMembers,
+                'totalGroupadmins' => $totalGroupadmins,
+                'totalGroups' => $totalGroups,
+                'collections' => $collections
+            ];
 
 
-        return view('admin.adminhome',$data);
+            return view('admin.adminhome', $data);
+
+
     }
-
 
     public function profile()
     {
-        $employeeInfo       = Employee::where('employee.employee_id',session('logged_session_data.employee_id'))->first();
-        $employeeExperience = EmployeeExperience::where('employee_id',session('logged_session_data.employee_id'))->get();
-        $employeeEducation  = EmployeeEducationQualification::where('employee_id',session('logged_session_data.employee_id'))->get();
+        $userInfo       = User::where('user.user_id', session('logged_session_data.user_id'))->first();
 
-         return view('admin.user.user.profile',['employeeInfo'=>$employeeInfo,'employeeExperience'=>$employeeExperience,'employeeEducation'=>$employeeEducation]);
+        return view('admin.user.user.profile', ['userInfo' => $userInfo]);
     }
 
 
@@ -231,7 +110,7 @@ class HomeController extends Controller
             'name' => "Learning Laravel",
         );
 
-        Mail::send('emails.mailExample', $user, function($message){
+        Mail::send('emails.mailExample', $user, function ($message) {
             $message->to("kamrultouhidsak@gmail.com");
             $message->subject('E-Mail Example');
         });

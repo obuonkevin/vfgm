@@ -66,7 +66,7 @@ select employee.employee_id,employee.photo,CONCAT(COALESCE(employee.first_name,'
 
                         inner join view_employee_in_out_data on view_employee_in_out_data.finger_print_id = employee.finger_id
 
-                        inner join department on department.department_id = employee.department_id
+                        inner join department on county.department_id = employee.department_id
 
 JOIN work_shift on work_shift.work_shift_id = employee.work_shift_id
 
@@ -142,7 +142,7 @@ select employee.employee_id,CONCAT(COALESCE(employee.first_name,''),' ',COALESCE
 
                         inner join view_employee_in_out_data on view_employee_in_out_data.finger_print_id = employee.finger_id
 
-                        inner join department on department.department_id = employee.department_id
+                        inner join department on county.department_id = employee.department_id
 
 JOIN work_shift on work_shift.work_shift_id = employee.work_shift_id
 
@@ -717,7 +717,7 @@ INSERT INTO `menus` (`id`, `parent_id`, `action`, `name`, `menu_url`, `module_id
 (3, 2, NULL, 'Add Role', 'userRole.index', 1, 1),
 (4, 2, NULL, 'Add Role Permission', 'rolePermission.index', 1, 1),
 (5, 0, NULL, 'Change Password', 'changePassword.index', 1, 1),
-(6, 0, NULL, 'Department', 'department.index', 2, 1),
+(6, 0, NULL, 'Department', 'county.index', 2, 1),
 (7, 0, NULL, 'Designation', 'designation.index', 2, 1),
 (8, 0, NULL, 'Branch', 'branch.index', 2, 1),
 (9, 0, NULL, 'Manage Employee', 'employee.index', 2, 1),

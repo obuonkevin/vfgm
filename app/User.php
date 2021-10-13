@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\MOdel\Role;
+use App\Model\Role;
 
 use Illuminate\Notifications\Notifiable;
 
@@ -20,7 +20,7 @@ class User extends Authenticatable
     protected $table = 'user';
     protected $primaryKey = 'user_id';
 
-    protected $fillable = ['user_id','role_id','user_name','password','status','created_by','updated_by'];
+    protected $fillable = ['user_id','role_id','sacco_id','member_number','user_name','first_name','last_name','phone_no','id_no','email','password','otp','status','created_by','updated_by'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -34,4 +34,6 @@ class User extends Authenticatable
     public function role(){
         return $this->hasOne(Role::class,'role_id','role_id');
     }
+
+
 }

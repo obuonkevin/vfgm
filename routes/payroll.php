@@ -5,11 +5,25 @@ Route::group(['middleware' => ['preventbackbutton','auth']], function(){
     Route::group(['prefix' => 'taxSetup'], function () {
         Route::get('/',['as' => 'taxSetup.index', 'uses'=>'Payroll\TaxSetupController@index']);
         Route::post('updateTaxRule','Payroll\TaxSetupController@updateTaxRule');
+        Route::post('updateTaxReliefs','Payroll\TaxSetupController@updateTaxReliefs');
+        Route::get('nhif', ['as' => 'taxSetup.nhif', 'uses' => 'Payroll\NhifSetupController@index']);
+        Route::get('nhif/create', ['as' => 'taxSetup.nhifCreate', 'uses' => 'Payroll\NhifSetupController@create']);
+        Route::get('nhif/{range}/edit', ['as' => 'taxSetup.nhifEdit', 'uses' => 'Payroll\NhifSetupController@edit']);
+        Route::post('nhif/store', ['as' => 'taxSetup.nhifStore', 'uses' => 'Payroll\NhifSetupController@store']);
+        Route::put('nhif/{range}/update', ['as' => 'taxSetup.nhifUpdate', 'uses' => 'Payroll\NhifSetupController@update']);
+        Route::get('nhif/{range}/delete', ['as' => 'taxSetup.nhifDelete', 'uses' => 'Payroll\NhifSetupController@destroy']);
+
+        Route::get('/nssf',['as' => 'nssfSetup.index', 'uses'=>'Payroll\NssfSetupController@index']);
+        Route::post('updateNSSFTaxRule','Payroll\NssfSetupController@updateTaxRule');
     });
 
     Route::group(['prefix' => 'salaryDeductionRuleForLateAttendance'], function () {
         Route::get('/',['as' => 'salaryDeductionRule.index', 'uses'=>'Payroll\SalaryDeductionRuleController@index']);
         Route::post('updateSalaryDeductionRule','Payroll\SalaryDeductionRuleController@updateSalaryDeductionRule');
+    });
+
+    Route::group(['prefix' => 'payroll'], function () {
+        Route::get('/',['as' => 'payroll.index', 'uses'=>'Payroll\PayrollController@index']);
     });
 
     Route::group(['prefix' => 'allowance'], function () {
@@ -18,7 +32,7 @@ Route::group(['middleware' => ['preventbackbutton','auth']], function(){
         Route::post('/store',['as' => 'allowance.store', 'uses'=>'Payroll\AllowanceController@store']);
         Route::get('/{allowance}/edit',['as'=>'allowance.edit','uses'=>'Payroll\AllowanceController@edit']);
         Route::put('/{allowance}',['as' => 'allowance.update', 'uses'=>'Payroll\AllowanceController@update']);
-        Route::delete('/{allowance}/delete',['as'=>'allowance.delete','uses'=>'Payroll\AllowanceController@destroy']);
+        Route::get('/{allowance}/delete',['as'=>'allowance.delete','uses'=>'Payroll\AllowanceController@destroy']);
     });
 
     Route::group(['prefix' => 'deduction'], function () {
@@ -27,7 +41,7 @@ Route::group(['middleware' => ['preventbackbutton','auth']], function(){
         Route::post('/store',['as' => 'deduction.store', 'uses'=>'Payroll\DeductionController@store']);
         Route::get('/{deduction}/edit',['as'=>'deduction.edit','uses'=>'Payroll\DeductionController@edit']);
         Route::put('/{deduction}',['as' => 'deduction.update', 'uses'=>'Payroll\DeductionController@update']);
-        Route::delete('/{deduction}/delete',['as'=>'deduction.delete','uses'=>'Payroll\DeductionController@destroy']);
+        Route::get('/{deduction}/delete',['as'=>'deduction.delete','uses'=>'Payroll\DeductionController@destroy']);
 
     });
 
@@ -37,7 +51,7 @@ Route::group(['middleware' => ['preventbackbutton','auth']], function(){
         Route::post('/store',['as' => 'payGrade.store', 'uses'=>'Payroll\PayGradeController@store']);
         Route::get('/{payGrade}/edit',['as'=>'payGrade.edit','uses'=>'Payroll\PayGradeController@edit']);
         Route::put('/{payGrade}',['as' => 'payGrade.update', 'uses'=>'Payroll\PayGradeController@update']);
-        Route::delete('/{payGrade}/delete',['as'=>'payGrade.delete','uses'=>'Payroll\PayGradeController@destroy']);
+        Route::get('/{payGrade}/delete',['as'=>'payGrade.delete','uses'=>'Payroll\PayGradeController@destroy']);
     });
 
     Route::group(['prefix' => 'hourlyWages'], function () {
@@ -46,7 +60,7 @@ Route::group(['middleware' => ['preventbackbutton','auth']], function(){
         Route::post('/store',['as' => 'hourlyWages.store', 'uses'=>'Payroll\HourlyWagesPayrollController@store']);
         Route::get('/{hourlyWages}/edit',['as'=>'hourlyWages.edit','uses'=>'Payroll\HourlyWagesPayrollController@edit']);
         Route::put('/{hourlyWages}',['as' => 'hourlyWages.update', 'uses'=>'Payroll\HourlyWagesPayrollController@update']);
-        Route::delete('/{hourlyWages}/delete',['as'=>'hourlyWages.delete','uses'=>'Payroll\HourlyWagesPayrollController@destroy']);
+        Route::get('/{hourlyWages}/delete',['as'=>'hourlyWages.delete','uses'=>'Payroll\HourlyWagesPayrollController@destroy']);
     });
 
     Route::get('generateSalarySheet',['as' => 'generateSalarySheet.index', 'uses'=>'Payroll\GenerateSalarySheet@index']);
@@ -54,10 +68,10 @@ Route::group(['middleware' => ['preventbackbutton','auth']], function(){
     Route::get('generateSalarySheet/calculateEmployeeSalary',['as' => 'generateSalarySheet.calculateEmployeeSalary', 'uses'=>'Payroll\GenerateSalarySheet@calculateEmployeeSalary']);
     Route::post('/store',['as' => 'saveEmployeeSalaryDetails.store', 'uses'=>'Payroll\GenerateSalarySheet@store']);
     Route::post('generateSalarySheet/makePayment','Payroll\GenerateSalarySheet@makePayment');
+    Route::post('makePaymentBulk', ['as' => 'generateSalarySheet.makePaymentBulk', 'uses'=>'Payroll\GenerateSalarySheet@makePaymentBulk']);
+    Route::post('/store',['as' => 'saveEmployeeSalaryDetails.store', 'uses'=>'Payroll\GenerateSalarySheet@store']);
     Route::get('generateSalarySheet/generatePayslip/{id}','Payroll\GenerateSalarySheet@generatePayslip');
     Route::get('generateSalarySheet/monthSalary',['as' => 'generateSalarySheet.monthSalary', 'uses'=>'Payroll\GenerateSalarySheet@monthSalary']);
-
-    Route::get('paymentHistory',['as' => 'paymentHistory.paymentHistory', 'uses'=>'Payroll\GenerateSalarySheet@paymentHistory']);
     Route::post('paymentHistory',['as' => 'paymentHistory.paymentHistory', 'uses'=>'Payroll\GenerateSalarySheet@paymentHistory']);
     Route::get('paymentHistory/generatePayslip/{id}','Payroll\GenerateSalarySheet@generatePayslip');
 
@@ -78,7 +92,7 @@ Route::group(['middleware' => ['preventbackbutton','auth']], function(){
         Route::post('/store',['as' => 'bonusSetting.store', 'uses'=>'Payroll\BonusSettingController@store']);
         Route::get('/{bonusSetting}/edit',['as'=>'bonusSetting.edit','uses'=>'Payroll\BonusSettingController@edit']);
         Route::put('/{bonusSetting}',['as' => 'bonusSetting.update', 'uses'=>'Payroll\BonusSettingController@update']);
-        Route::delete('/{bonusSetting}/delete',['as'=>'bonusSetting.delete','uses'=>'Payroll\BonusSettingController@destroy']);
+        Route::get('/{bonusSetting}/delete',['as'=>'bonusSetting.delete','uses'=>'Payroll\BonusSettingController@destroy']);
     });
 
     Route::group(['prefix' => 'generateBonus'], function () {

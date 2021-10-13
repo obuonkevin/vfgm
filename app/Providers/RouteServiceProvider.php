@@ -38,16 +38,16 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
-        Route::middleware('web')->namespace($this->namespace)->group(base_path('routes/employee.php'));
-        Route::middleware('web')->namespace($this->namespace)->group(base_path('routes/leave.php'));
-        Route::middleware('web')->namespace($this->namespace)->group(base_path('routes/attendance.php'));
-        Route::middleware('web')->namespace($this->namespace)->group(base_path('routes/payroll.php'));
-        Route::middleware('web')->namespace($this->namespace)->group(base_path('routes/performance.php'));
         Route::middleware('web')->namespace($this->namespace)->group(base_path('routes/setting.php'));
-        Route::middleware('web')->namespace($this->namespace)->group(base_path('routes/awardNoticeAndTraining.php'));
-        Route::middleware('web')->namespace($this->namespace)->group(base_path('routes/recruitment.php'));
-
-
+        Route::middleware('web')->namespace($this->namespace)->group(base_path('routes/article.php'));
+        Route::middleware('web')->namespace($this->namespace)->group(base_path('routes/sacco.php'));
+        Route::middleware('web')->namespace($this->namespace)->group(base_path('routes/farm.php'));
+        Route::middleware('web')->namespace($this->namespace)->group(base_path('routes/market.php'));
+        Route::middleware('web')->namespace($this->namespace)->group(base_path('routes/subscription.php'));
+        Route::middleware('web')->namespace($this->namespace)->group(base_path('routes/trainings.php'));
+        Route::middleware('web')->namespace($this->namespace)->group(base_path('routes/weather.php'));
+        Route::middleware('web')->namespace($this->namespace)->group(base_path('routes/user.php'));
+        Route::middleware('web')->namespace($this->namespace)->group(base_path('routes/sales.php'));
         //
     }
 
