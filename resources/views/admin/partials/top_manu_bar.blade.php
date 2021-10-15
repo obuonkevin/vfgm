@@ -4160,7 +4160,7 @@
                         <div class="cursor-pointer symbol symbol-30px symbol-md-40px"
                             data-kt-menu-trigger="click" data-kt-menu-attach="parent"
                             data-kt-menu-placement="bottom-end" data-kt-menu-flip="bottom">
-                            <img src="assets1/media/avatars/blank.png" alt="VFGM" />
+                            <img src="{{url('assets1/media/avatars/blank.png')}}" alt="VFGM" />
                         </div>
                         <!--begin::Menu-->
                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold py-4 fs-6 w-275px"

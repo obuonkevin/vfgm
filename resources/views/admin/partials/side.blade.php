@@ -1,7 +1,7 @@
 <?php
 $sideMenu = showMenu();
 $menuItem = '';
-$moduleIdentifier = getMooduleIdentifier();
+$moduleIdentifier = getModuleIdentifier();
 
 foreach ($sideMenu as $key => $value) {
     $menuItem .= '<li class="treeview waves-effect">

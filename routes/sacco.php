@@ -53,6 +53,9 @@ Route::group(['prefix' => 'reports'], function () {
 
  Route::get('/savingsReport',['as' => 'reports.savingsReport', 'uses' =>'Reports\ReportsController@savingsReport']);
  Route::post('/savingsReport',['as' => 'reports.savingsReport', 'uses' =>'Reports\ReportsController@savingsReport']);
+
+ Route::get('/salesReport',['as' => 'reports.salesReport', 'uses' =>'Reports\ReportsController@salesReport']);
+ Route::post('/salesReport',['as' => 'reports.salesReport', 'uses' =>'Reports\ReportsController@salesReport']);
 });
 });
 Route::get('downloadGroupReport','Reports\ReportsController@downloadGroupReport');
@@ -61,3 +64,4 @@ Route::get('downloadsavingsReport','Reports\ReportsController@downloadsavingsRep
 Route::get('downloadCountyReport','Reports\ReportsController@downloadCountyReport');
 Route::get('downloadSubCountyReport','Reports\ReportsController@downloadSubCountyReport');
 Route::get('downloadWardReport','Reports\ReportsController@downloadWardReport');
+Route::get('downloadSalesReport','Reports\ReportsController@downloadSalesReport');

@@ -12,7 +12,9 @@ use App\Model\Settings\Ward;
 
 use Illuminate\Http\Request;
 
+use App\Model\Market\Product;
 use App\Model\Settings\County;
+use App\Model\Sales\Sales;
 use App\Model\PrintHeadSetting;
 use App\Model\Sacco\SaccoMember;
 use App\Model\Settings\Location;
@@ -300,4 +302,39 @@ public function downloadWardReport(Request $request){
 
 }
 
+    public function salesReport(Request $request)
+    {
+        $userList  = $this->commonRepository->userList();
+        $vendorList  = $this->commonRepository->vendorList();
+        $categoryList = $this->commonRepository->categoryList();
+
+        $results = [];
+        if ($_POST){
+            $results = Product::join('user','product.bought_by', '=','user.user_id')->with(['user', 'vendor', 'category'])
+                ->where('product.status',2)
+                ->orderBy('product_id', 'DESC')
+                ->get();
+        }
+
+        return view('admin.reports.salesReport', ['results' => $results,'userList' => $userList,'vendors' => $vendorList, 'categorys' => $categoryList]);
+    }
+
+    public function downloadSalesReport(Request $request){
+        $printHead     = PrintHeadSetting::first();
+        $results       = Product::join('user','product.bought_by', '=','user.user_id')->with(['user', 'vendor', 'category'])
+            ->where('product.status',2)
+            ->orderBy('product_id', 'DESC')
+            ->get();
+
+        $data = [
+            'results'           =>  $results,
+            'printHead'         =>  $printHead,
+        ];
+
+        $pdf = PDF::loadView('admin.reports.pdf.salesReportPdf', $data);
+        $pdf->setPaper('A4', 'landscape');
+        $pageName = "sales-Report.pdf";
+        return $pdf->download($pageName);
+
+    }
 }
